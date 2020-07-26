@@ -8,14 +8,14 @@ namespace L2DigiProgrammingAssesment
     class ChooseVersion
     {
         static List<Action> programVersions = new List<Action>();
-        static string[] versionNames = new string[] { "Input", "ChangeIngreds" };
-        static int[] actualVersion = new int[] { 1, 2 };
+        static string[] versionNames = new string[] { "Basic functionality"};
+        static int[] actualVersion = new int[] { 1};
         static string versionToRun;
         static int parsedVersion;
 
         public static void Main(string[] args)
         {
-            programVersions.Add(() => V1.V1Class());
+            programVersions.Add(() => V1.V1Main());
             Console.WriteLine("<This is for version testing only>");
             Console.WriteLine("Which version would you like to run?");
             for (int i = 0; i < actualVersion.Length; i++)
@@ -33,7 +33,7 @@ namespace L2DigiProgrammingAssesment
             float decimals = float.Parse(versionToRun);
             if (decimals > 0 && decimals < actualVersion.Max())
             {
-                // rounding float to 0dp so it can go into integer
+                // rounding float to 0dp so it can parse to integer without error
                 parsedVersion = (int)Math.Round(decimals - 1, 0);
             }
 
