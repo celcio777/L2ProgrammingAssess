@@ -5,11 +5,11 @@ using System.Text;
 
 namespace L2DigiProgrammingAssesment
 {
-    class V1
+    class V2
     {
         static string name1, name2;
         static float price1, price2, size1, size2;
-        public static void V1Main()
+        public static void V2Main()
         {
             // gathering data (inefficient)
             Console.WriteLine("What are the Name, Price, and size of your products?");
