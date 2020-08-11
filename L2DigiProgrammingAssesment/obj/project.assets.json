@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\L2ProgrammingAssess2\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\celcio777\\L2ProgrammingAssess\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
       "projectName": "L2DigiProgrammingAssesment",
-      "projectPath": "C:\\Users\\User\\Source\\Repos\\L2ProgrammingAssess2\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
+      "projectPath": "C:\\Users\\User\\Source\\Repos\\celcio777\\L2ProgrammingAssess\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Source\\Repos\\L2ProgrammingAssess2\\L2DigiProgrammingAssesment\\obj\\",
+      "outputPath": "C:\\Users\\User\\Source\\Repos\\celcio777\\L2ProgrammingAssess\\L2DigiProgrammingAssesment\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
