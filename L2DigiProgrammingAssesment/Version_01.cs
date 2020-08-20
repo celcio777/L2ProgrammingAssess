@@ -11,6 +11,7 @@ namespace L2DigiProgrammingAssesment
         static float price1, price2, size1, size2;
         public static void V1Main()
         {
+            // gathering data (inefficient)
             Console.WriteLine("What are the Name, Price, and size of your products?");
             Console.WriteLine("1st Name:");
             name1 = Console.ReadLine();
@@ -27,10 +28,12 @@ namespace L2DigiProgrammingAssesment
             Console.WriteLine("2nd Size:");
             size2 = float.Parse(Console.ReadLine());
             hl();
+            // displaying the data back to user 
             Console.WriteLine("These are the products you have given:");
             Console.WriteLine($"1) {name1}: ${price1}, size: {size1}");
             Console.WriteLine($"2) {name2}: ${price2}, size: {size2}");
         }
+        // Convenient function for a quick Horizontal Line
         static void hl()
         {
             Console.WriteLine("########################");

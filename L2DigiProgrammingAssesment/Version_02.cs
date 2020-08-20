@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using System.IO;
 
 namespace L2DigiProgrammingAssesment
 {
@@ -10,8 +9,9 @@ namespace L2DigiProgrammingAssesment
     {
         static string name1, name2;
         static float price1, price2, size1, size2;
-        public class scoring{
-            public int score1 = 0, score2 = 0;
+        public struct scoringClass
+        {
+            public int score1, score2;
         }
         public static void V2Main()
         {
@@ -32,55 +32,56 @@ namespace L2DigiProgrammingAssesment
             Console.WriteLine("2nd Size:");
             size2 = float.Parse(Console.ReadLine());
             hl();
-            scoring scoringDisplay = calculateScores(price1,price2,size1,size2);
             // displaying the data back to user 
             Console.WriteLine("These are the products you have given:");
             Console.WriteLine($"1) {name1}: ${price1}, size: {size1}");
             Console.WriteLine($"2) {name2}: ${price2}, size: {size2}");
+            scoringClass returnScores = compareRateProducts(price1, price2, size1, size2);
             hl();
-            // displaying ranked data
-            Console.WriteLine("And here is the ranked order from logical best to worst:");
-            if(scoringDisplay.score1 > scoringDisplay.score2){
-                Console.WriteLine($"1) {name1}: ${price1}, size: {size1}, Overall Score: {scoringDisplay.score1}");
-                Console.WriteLine($"2) {name2}: ${price2}, size: {size2}, Overall Score: {scoringDisplay.score2}");
-            }else if(scoringDisplay.score1 < scoringDisplay.score2 ){
-                Console.WriteLine($"1) {name2}: ${price2}, size: {size2}, Cverall Score: {scoringDisplay.score2}");
-                Console.WriteLine($"2) {name1}: ${price1}, size: {size1}, Overall Score: {scoringDisplay.score1}");
+            Console.WriteLine("These are the products ranked by score:");
+            if(returnScores.score1 > returnScores.score2)
+            {
+                Console.WriteLine($"1) {name1}: ${price1}, size: {size1}, score: {returnScores.score1}");
+                Console.WriteLine($"2) {name2}: ${price2}, size: {size2}, score: {returnScores.score2}");
+            }else if(returnScores.score2 == returnScores.score1)
+            {
+                Console.WriteLine($"1) {name1}: ${price1}, size: {size1}, score: {returnScores.score1}");
+                Console.WriteLine($"2) {name2}: ${price2}, size: {size2}, score: {returnScores.score2}");
             }
             else
             {
-                Console.WriteLine($"1) {name1}: ${price1}, size: {size1}, Overall Score: {scoringDisplay.score1}");
-                Console.WriteLine($"2) {name2}: ${price2}, size: {size2}, Overall Score: {scoringDisplay.score2}");
+                Console.WriteLine($"2) {name2}: ${price2}, size: {size2}, score: {returnScores.score2}");
+                Console.WriteLine($"1) {name1}: ${price1}, size: {size1}, score: {returnScores.score1}");
             }
         }
-        // method to calculate "scoreboard" of products
-        static private scoring calculateScores(float tmpPrice1, float tmpPrice2, float tmpSize1, float tmpSize2)
-        {
-            
-            // creating copy of the scoring struct to pass through function
-            scoring scoringCopy = new scoring();
-            if(tmpPrice2 > tmpPrice1){
-                scoringCopy.score1+=2;
-                scoringCopy.score2++;
-            }else if(tmpPrice1 > tmpPrice2){
-                scoringCopy.score1++;
-                scoringCopy.score2+=2;
-            }
-            if(tmpSize1 > tmpSize2) {
-                scoringCopy.score1 +=2;
-                scoringCopy.score2++;
-            }else if(tmpSize1<tmpSize2){
-                scoringCopy.score1++;
-                scoringCopy.score2+=2;
-            }
-            return(scoringCopy);
-        }
-
-        // Convenient function for Horizontal Line (hl)
+        // Convenient function for a quick Horizontal Line
         static void hl()
         {
             Console.WriteLine("########################");
             Console.WriteLine();
+        }
+        static scoringClass compareRateProducts(float tmpPrice1, float tmpPrice2, float tmpSize1, float tmpSize2)
+        {
+            scoringClass passScoring = new scoringClass();
+            if(tmpPrice1 > tmpPrice2)
+            {
+                passScoring.score1++;
+                passScoring.score2 += 2;
+            }else if(tmpPrice2 > tmpPrice1)
+            {
+                passScoring.score1 += 2;
+                passScoring.score2++;
+            }
+            if(tmpSize1 > tmpSize2)
+            {
+                passScoring.score1++;
+                passScoring.score2 += 2;
+            }else if(tmpSize2 > tmpSize1)
+            {
+                passScoring.score2++;
+                passScoring.score1 += 2;
+            }
+            return passScoring;
         }
     }
 }

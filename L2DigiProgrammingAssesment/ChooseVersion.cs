@@ -8,8 +8,8 @@ namespace L2DigiProgrammingAssesment
     class ChooseVersion
     {
         static List<Action> programVersions = new List<Action>();
-        static string[] versionNames = new string[] { "Basic functionality","Improved Functionality"};
-        static int[] actualVersion = new int[] { 1,2};
+        static string[] versionNames = new string[] { "Basic functionality"};
+        static int[] actualVersion = new int[] { 1};
         static string versionToRun;
 
         public static void Main(string[] args)
