@@ -13,7 +13,6 @@ namespace L2DigiProgrammingAssesment
         public class scoring{
             public int score1 = 0, score2 = 0;
         }
-        private int score1, score2;
         public static void V2Main()
         {
             // gathering data (inefficient)

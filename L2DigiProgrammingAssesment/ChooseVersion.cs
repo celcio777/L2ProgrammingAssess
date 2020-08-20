@@ -11,7 +11,6 @@ namespace L2DigiProgrammingAssesment
         static string[] versionNames = new string[] { "Basic functionality","Improved Functionality"};
         static int[] actualVersion = new int[] { 1,2};
         static string versionToRun;
-        static int parsedVersion;
 
         public static void Main(string[] args)
         {
@@ -32,12 +31,12 @@ namespace L2DigiProgrammingAssesment
             }
             // parsing the string into a float before int in case of decimals
             float decimals = float.Parse(versionToRun);
-            if (decimals > 0 && decimals < actualVersion.Max())
+            int parsedVersion = 1;
+            if (decimals > 0 && decimals <= actualVersion.Max())
             {
                 // rounding float to 0dp so it can parse to integer without error
                 parsedVersion = (int)Math.Round(decimals - 1, 0);
             }
-
 
             Console.WriteLine($"Now running version: {versionToRun}");
             programVersions[parsedVersion].Invoke();

@@ -28,8 +28,8 @@ namespace L2DigiProgrammingAssesment
             size2 = float.Parse(Console.ReadLine());
             hl();
             Console.WriteLine("These are the products you have given:");
-            Console.WriteLine($"1) {price1}: ${price1}, size: {size1}");
-            Console.WriteLine($"2) {price2}: ${price2}, size: {size2}");
+            Console.WriteLine($"1) {name1}: ${price1}, size: {size1}");
+            Console.WriteLine($"2) {name2}: ${price2}, size: {size2}");
         }
         static void hl()
         {
