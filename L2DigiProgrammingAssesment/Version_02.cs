@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-
 namespace L2DigiProgrammingAssesment
 {
     class V2

@@ -49,3 +49,16 @@ C:\Users\User\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesm
 C:\Users\User\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.dll
 C:\Users\User\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.pdb
 C:\Users\User\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.genruntimeconfig.cache
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.exe
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.deps.json
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.runtimeconfig.json
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.runtimeconfig.dev.json
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.dll
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.pdb
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.csprojAssemblyReference.cache
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.AssemblyInfoInputs.cache
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.AssemblyInfo.cs
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.csproj.CoreCompileInputs.cache
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.dll
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.pdb
+C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.genruntimeconfig.cache
