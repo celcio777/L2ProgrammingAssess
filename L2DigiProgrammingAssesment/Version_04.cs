@@ -1,22 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
+using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
+using System.Collections.Generic;
+using System.Text;
 
 namespace L2DigiProgrammingAssesment
 {
-    class V3
+    class V4
     {
-        static string[] name;
-        static float[] price, size;
+        static string[] name, nameRetain;
+        static float[] price, size, priceRetain, sizeRetain;
         public static int[] score;
-        public static void V3Main()
+        public enum measurementType
+        {
+            WEIGHT,
+            VOLUME
+        }
+        public static void V4Main()
         {
             bool rept = true; // loop for another product
-            int totI = 0; // the current product to be stored
+            int totI = 0; // the current product to be stored, The unit type (mas/vol)
             // gathering data (inefficient)
             hl();
             Console.WriteLine("How many products will you be comparing?");
@@ -27,7 +31,7 @@ namespace L2DigiProgrammingAssesment
             {
                 Console.WriteLine($"Name {totI + 1}:");
                 string tmpNam = Console.ReadLine();
-                if(tmpNam != "")
+                if (tmpNam != "")
                 {
                     name[totI] = tmpNam;
                 }
@@ -35,12 +39,12 @@ namespace L2DigiProgrammingAssesment
                 {
                     name[totI] = $"Product {totI + 1}";
                 }
-                
+
                 Console.WriteLine($" Price {totI + 1}:");
-                inputValid(totI, "s");
-                Console.WriteLine("Please enter all sizes in the same units");
-                Console.WriteLine($"Size {totI + 1}:");
                 inputValid(totI, "p");
+                Console.WriteLine("Please enter all sizes in the same unit type e.g: kg & g, L & mL");
+                Console.WriteLine($"Size {totI + 1}:");
+                inputValid(totI, "s");
                 totI++;
                 Console.WriteLine();
                 if (totI >= name.Length - 4 && name.Length - totI > 0)
@@ -55,21 +59,22 @@ namespace L2DigiProgrammingAssesment
                         {
                             rept = false;
                             break;
-                        }else if (cont == "y")
+                        }
+                        else if (cont == "y")
                         {
                             break;
                         }
                     }
 
                 }
-                else if(name.Length - totI > 0)
+                else if (name.Length - totI > 0)
                 {
                     Console.WriteLine("<Enter> to continue or \"done\" to finish");
                     string completed = Console.ReadLine();
-                    if(completed != "")
+                    if (completed != "")
                     {
                         Console.WriteLine("Are you sure you would like to finish? [y/n]");
-                        if(Console.ReadLine() == "y")
+                        if (Console.ReadLine() == "y")
                         {
                             break;
                         }
@@ -81,12 +86,12 @@ namespace L2DigiProgrammingAssesment
                     break;
                 }
             }
-            
+
             hl();
             // displaying the data back to user 
             Console.WriteLine("These are the products you have given:");
             Console.WriteLine();
-            for(int i = 0; i < name.Length; i++)
+            for (int i = 0; i < name.Length; i++)
             {
                 if (name[i] != null)
                 {
@@ -96,43 +101,45 @@ namespace L2DigiProgrammingAssesment
             }
             hl();
             Console.WriteLine("Here is a list of your products ranked by size and price:");
-            int [] returnScore = compareRateProducts(price, size); // array to store the returned score values in the long-term
+            int[] returnScore = compareRateProducts(price, size); // array to store the returned score values in the long-term
             for (int i = 0; i < name.Length; i++)
             {
-                if(name[i] != null)
+                if (name[i] != null)
                 {
                     int indexTopScore = Array.IndexOf(score, score.Max());
-                    Console.WriteLine($"{i + 1}) {name[indexTopScore]}> Price: ${price[indexTopScore]}, size: {size[indexTopScore]}, Score: {score[indexTopScore]}pts.");
+                    Console.WriteLine($"{i + 1}) {nameRetain[indexTopScore]}> Price: ${priceRetain[indexTopScore]}, size: {sizeRetain[indexTopScore]}, Score: {returnScore[indexTopScore]}pts.");
                     score[indexTopScore] = -2; // ensuring that the same product's score won't be called twice by setting it negative.
                 }
             }
         }
         // input error checking
-        static void inputValid(int i, string forVal)
+        static void inputValid(int iteration, string forVal)
         {
-            string tmpVal;
+            string tmpVal, keepVal;
             while (true)
             {
                 tmpVal = Console.ReadLine();
-                if(float.TryParse(tmpVal, out float parsed))
+                keepVal = tmpVal;
+                if (float.TryParse(tmpVal, out float parsed))
                 {
-                    valueInput(parsed);
+                    valueInput(parsed, tmpVal);
                     Console.WriteLine("Value submitted");
                     break;
                 }
                 else
                 {
                     tmpVal = Regex.Replace(tmpVal, "[^0-9.]", "");
-                    if(float.TryParse(tmpVal, out float parsed2))
+                    if (float.TryParse(tmpVal, out float parsed2))
                     {
                         Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
                         string yn = new string(Console.ReadLine());
-                        if(yn == "y")
+                        if (yn == "y")
                         {
-                            valueInput(parsed);
+                            valueInput(parsed, keepVal);
                             Console.WriteLine("Value submitted");
                             break;
-                        }else if (yn == "n")
+                        }
+                        else if (yn == "n")
                         {
                             Console.WriteLine("Okay, please try again.");
                         }
@@ -147,16 +154,79 @@ namespace L2DigiProgrammingAssesment
                     }
                 }
             }
-            void valueInput(float valueToEnter)
+            void valueInput(float valueToEnter, string recievedString)
             {
+                string[] symbolsMass = new string[] { "kg", "g" };
+                int[] unitsMass = new int[] { 1000, 1 };
+
+                string[] symbolsVol = new string[] { "L", "mL" };
+                int[] unitsVol = new int[] { 1000, 1 };
+                int multiplier = 1;
+
                 if (forVal == "s")
                 {
-                    size[i] = valueToEnter;
+                    size[iteration] = valueToEnter;
+                    bool reenterUnit = false, hasFoundUnit = false ;
+                    int whileLoops = 0;
+                    while (!hasFoundUnit)
+                    {
+                        whileLoops++;
+                        if (reenterUnit)
+                        {
+                            Console.WriteLine("Sorry, I couldn't identify a unit. Please enter the unit now.");
+                            Console.WriteLine("[Kg,g,L,mL]:");
+                            recievedString = Console.ReadLine();
+                            recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
+                        }
+                        else
+                        {
+                            recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
+                        }
+                        if (iteration == 0)
+                        {
+                            measurementType unitType = new measurementType();
+                            foreach (string sa in symbolsMass)
+                            {
+                                if (recievedString.ToLower() == sa.ToLower())
+                                {
+                                    unitType = measurementType.WEIGHT;
+                                    multiplier = unitsMass[Array.IndexOf(symbolsMass, sa)];
+                                    Console.WriteLine("Unit type found: Mass");
+                                    hasFoundUnit = true;
+                                    break;
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            if (unitType != measurementType.WEIGHT)
+                            {
+                                foreach (string sb in symbolsVol)
+                                {
+                                    if (recievedString.ToLower() == sb.ToLower())
+                                    {
+                                        unitType = measurementType.VOLUME;
+                                        multiplier = unitsMass[Array.IndexOf(symbolsVol, sb)];
+                                        Console.WriteLine("Unit type found: Mass");
+                                        hasFoundUnit = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (unitType != measurementType.VOLUME && unitType != measurementType.WEIGHT)
+                            {
+                                reenterUnit = true;
+                            }
+                        }
+                    }
+                    
                 }
                 else if (forVal == "p")
                 {
-                    price[i] = valueToEnter;
-                }else if(forVal == "i")// "i" is indicative of initialising the list variables
+                    price[iteration] = valueToEnter;
+                }
+                else if (forVal == "i")// "i" is indicative of initialising the list variables
                 {
                     // setting the arrays to the amount of products that the user will enter, with some flexibility
                     price = new float[(int)valueToEnter + 4];
@@ -174,10 +244,15 @@ namespace L2DigiProgrammingAssesment
         }
         static int[] compareRateProducts(float[] calcPrice, float[] calcSizeScore)
         {
+            // setting keep variables so that there is still an array to display the 
+            // variables of after scoring
+            nameRetain = name;
+            sizeRetain = size;
+            priceRetain = price;
             int i = 0;
-            foreach(string j in name)
+            foreach (string j in name)
             {
-                if(name[i] != "")
+                if (name[i] != "")
                 {
                     i++;
                 }
@@ -185,9 +260,9 @@ namespace L2DigiProgrammingAssesment
                 {
                     break;
                 }
-                
+
             }
-            for(int j = 0; j < i; j++)
+            for (int j = 0; j < i; j++)
             {
                 score[calcScores(size)] += i - j;
                 size[j] = 0;

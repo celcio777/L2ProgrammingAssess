@@ -62,3 +62,4 @@ C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment
 C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.dll
 C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.pdb
 C:\Users\Nick Cooper\Source\Repos\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.genruntimeconfig.cache
+C:\Users\User\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Debug\netcoreapp3.1\L2DigiProgrammingAssesment.csprojAssemblyReference.cache
