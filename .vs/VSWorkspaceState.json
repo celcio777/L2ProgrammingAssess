@@ -1,6 +1,17 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\L2DigiProgrammingAssesment",
+    "\\L2DigiProgrammingAssesment\\bin",
+    "\\L2DigiProgrammingAssesment\\bin\\Debug",
+    "\\L2DigiProgrammingAssesment\\bin\\Debug\\netcoreapp3.1",
+    "\\L2DigiProgrammingAssesment\\bin\\HPD",
+    "\\L2DigiProgrammingAssesment\\bin\\HPD\\Debug",
+    "\\L2DigiProgrammingAssesment\\bin\\HPD\\Debug\\netcoreapp3.1",
+    "\\L2DigiProgrammingAssesment\\obj",
+    "\\L2DigiProgrammingAssesment\\obj\\Debug",
+    "\\L2DigiProgrammingAssesment\\obj\\Debug\\netcoreapp3.1"
   ],
+  "SelectedNode": "\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
   "PreviewInSolutionExplorer": false
 }

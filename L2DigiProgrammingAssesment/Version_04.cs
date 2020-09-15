@@ -14,6 +14,7 @@ namespace L2DigiProgrammingAssesment
         public static int[] score;
         public enum measurementType
         {
+            NULLVALUE,
             WEIGHT,
             VOLUME
         }
@@ -115,7 +116,7 @@ namespace L2DigiProgrammingAssesment
         // input error checking
         static void inputValid(int iteration, string forVal)
         {
-            string tmpVal, keepVal;
+            string tmpVal, keepVal, tmpUnitDisplay;
             while (true)
             {
                 tmpVal = Console.ReadLine();
@@ -128,25 +129,53 @@ namespace L2DigiProgrammingAssesment
                 }
                 else
                 {
+                    tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-]", string.Empty);
                     tmpVal = Regex.Replace(tmpVal, "[^0-9.]", "");
                     if (float.TryParse(tmpVal, out float parsed2))
                     {
-                        Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
-                        string yn = new string(Console.ReadLine());
-                        if (yn == "y")
+                        if (forVal != "s") // if the value that will be entered (Size, Price etc) is size, it needs a
+                            // different format of communication, as more data is required for that function, thus the
+                            // if statement allows different writes per condition.
                         {
-                            valueInput(parsed, keepVal);
-                            Console.WriteLine("Value submitted");
-                            break;
-                        }
-                        else if (yn == "n")
-                        {
-                            Console.WriteLine("Okay, please try again.");
+                            Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
+                            string yn = new string(Console.ReadLine());
+                            if (yn == "y")
+                            {
+                                valueInput(parsed, keepVal);
+                                Console.WriteLine("Value submitted");
+                                break;
+                            }
+                            else if (yn == "n")
+                            {
+                                Console.WriteLine("Okay, please try again.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("An error occured, please try again:"); // this is a final wall, in case any of the other filters or 
+                                // requests fail, this will serve as a stop to prevent program failure.
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("An error occured, please try again:");
+                            Console.WriteLine($"Confirm that you would like to enter numerical value {parsed2} and unit {tmpUnitDisplay}?");
+                            while (true)
+                            {
+                                Console.WriteLine("[y/n]");
+                                string yn = Console.ReadLine();
+                                if(yn == "y")
+                                {
+                                    valueInput(parsed, keepVal);
+                                    break;
+                                }else if (yn == "n")
+                                {
+                                    Console.WriteLine("Okay, please try again");
+                                    break;
+                                }
+                                
+                            }
+                            
                         }
+                        
                     }
                     else
                     {
@@ -182,9 +211,9 @@ namespace L2DigiProgrammingAssesment
                         {
                             recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
                         }
+                        measurementType unitType = new measurementType();
                         if (iteration == 0)
                         {
-                            measurementType unitType = new measurementType();
                             foreach (string sa in symbolsMass)
                             {
                                 if (recievedString.ToLower() == sa.ToLower())
@@ -208,7 +237,7 @@ namespace L2DigiProgrammingAssesment
                                     {
                                         unitType = measurementType.VOLUME;
                                         multiplier = unitsMass[Array.IndexOf(symbolsVol, sb)];
-                                        Console.WriteLine("Unit type found: Mass");
+                                        Console.WriteLine("Unit type found: Volume");
                                         hasFoundUnit = true;
                                         break;
                                     }
@@ -217,6 +246,28 @@ namespace L2DigiProgrammingAssesment
                             if (unitType != measurementType.VOLUME && unitType != measurementType.WEIGHT)
                             {
                                 reenterUnit = true;
+                            }
+                        }else if(iteration > 0)
+                        {
+                            if(unitType == measurementType.VOLUME)
+                            {
+                                foreach (string sa in symbolsMass)
+                                {
+                                    if (sa == recievedString)
+                                    {
+
+                                    }
+                                }
+                            }
+                            else if(unitType == measurementType.WEIGHT)
+                            {
+                                foreach(string sb in symbolsMass)
+                                {
+                                    if(sb == recievedString)
+                                    {
+
+                                    }
+                                }
                             }
                         }
                     }
