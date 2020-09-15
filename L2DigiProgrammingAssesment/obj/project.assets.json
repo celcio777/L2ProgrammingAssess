@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Nick\\.nuget\\packages\\": {}
+    "C:\\Users\\Nick Cooper\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nick\\Source\\Repos\\celcio777\\L2ProgrammingAssess\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
+      "projectUniqueName": "C:\\Users\\Nick Cooper\\source\\repos\\L2ProgrammingAssess1\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
       "projectName": "L2DigiProgrammingAssesment",
-      "projectPath": "C:\\Users\\Nick\\Source\\Repos\\celcio777\\L2ProgrammingAssess\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
-      "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nick\\Source\\Repos\\celcio777\\L2ProgrammingAssess\\L2DigiProgrammingAssesment\\obj\\",
+      "projectPath": "C:\\Users\\Nick Cooper\\source\\repos\\L2ProgrammingAssess1\\L2DigiProgrammingAssesment\\L2DigiProgrammingAssesment.csproj",
+      "packagesPath": "C:\\Users\\Nick Cooper\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nick Cooper\\source\\repos\\L2ProgrammingAssess1\\L2DigiProgrammingAssesment\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nick Cooper\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

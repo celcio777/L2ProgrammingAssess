@@ -41,7 +41,8 @@ namespace L2DigiProgrammingAssesment
                     name[totI] = $"Product {totI + 1}";
                 }
 
-                Console.WriteLine($" Price {totI + 1}:");
+                Console.WriteLine($"Price {totI + 1}:");
+                Console.Write("$"); // inserting a "$" before the user's input, prompting them to input only the number itself.
                 inputValid(totI, "p");
                 Console.WriteLine("Please enter all sizes in the same unit type e.g: kg & g, L & mL");
                 Console.WriteLine($"Size {totI + 1}:");
@@ -158,7 +159,8 @@ namespace L2DigiProgrammingAssesment
                         else
                         {
                             Console.WriteLine($"Confirm that you would like to enter numerical value {parsed2} and unit {tmpUnitDisplay}?");
-                            while (true)
+                            
+                            while (true) // loops until a valid input is given
                             {
                                 Console.WriteLine("[y/n]");
                                 string yn = Console.ReadLine();
