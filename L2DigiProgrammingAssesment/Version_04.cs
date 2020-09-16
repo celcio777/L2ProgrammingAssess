@@ -112,10 +112,22 @@ namespace L2DigiProgrammingAssesment
             int[] returnScore = compareRateProducts(price, size); // array to store the returned score values in the long-term
             for (int i = 0; i < name.Length; i++)
             {
+                string unitsUsed;
+                if(unitTypeControl == measurementType.VOLUME)
+                {
+                    unitsUsed = "L";
+                }else if(unitTypeControl == measurementType.WEIGHT)
+                {
+                    unitsUsed = "Kg";
+                }
+                else
+                {
+                    unitsUsed = "Units";
+                }
                 if (name[i] != null)
                 {
                     int indexTopScore = Array.IndexOf(score, score.Max());
-                    Console.WriteLine($"{i + 1}) {nameRetain[indexTopScore]}> Price: ${priceRetain[indexTopScore]}, size: {sizeRetain[indexTopScore]}, Score: {returnScore[indexTopScore]}pts.");
+                    Console.WriteLine($"{i + 1}) {nameRetain[indexTopScore]}> Price: ${priceRetain[indexTopScore]}, size: {sizeRetain[indexTopScore]}{unitsUsed}, Score: {returnScore[indexTopScore]}pts.");
                     score[indexTopScore] = -2; // ensuring that the same product's score won't be called twice by setting it negative.
                 }
             }
@@ -215,7 +227,7 @@ namespace L2DigiProgrammingAssesment
 
                 if (forVal == "s")
                 {
-                    size[iteration] = valueToEnter;
+                    
                     bool reenterUnit = false, hasFoundUnit = false, noUnit = false ;
                     int whileLoops = 0;
 
@@ -231,13 +243,9 @@ namespace L2DigiProgrammingAssesment
                             
                             Console.WriteLine("[Kg,g,L,mL]:");
                             recievedString = Console.ReadLine();
-                            recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
                         }
-                        else
-                        {
-                            recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
-                        }
-                        
+                        recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
+
                         if (iteration == 0)
                         {
                             foreach (string sa in symbolsMass)
@@ -284,7 +292,7 @@ namespace L2DigiProgrammingAssesment
                                     break;
                                 }
                             }
-                            foreach (string sb in symbolsMass)
+                            foreach (string sb in symbolsVol)
                             {
                                 if (sb == recievedString)
                                 {
@@ -309,7 +317,8 @@ namespace L2DigiProgrammingAssesment
                             
                         }
                     }
-                    
+                    size[iteration] = convertToLargeUnits(recievedString, valueToEnter);
+
                 }
                 else if (forVal == "p")
                 {
@@ -323,6 +332,42 @@ namespace L2DigiProgrammingAssesment
                     size = new float[(int)valueToEnter + 4];
                     score = new int[(int)valueToEnter + 4];
                 }
+            }
+        }
+        static float convertToLargeUnits(string inputUnit, float unconvertedValue)
+        {
+            if(unitTypeControl == measurementType.VOLUME)
+            {
+                if(inputUnit.ToLower() == "ml")
+                {
+                    return unconvertedValue / 1000;
+                }
+                else if(inputUnit.ToLower() == "l")
+                {
+                    return unconvertedValue;
+                }
+                else
+                {
+                    return 0;
+                }
+            }else if(unitTypeControl == measurementType.WEIGHT)
+            {
+                if(inputUnit.ToLower() == "g")
+                {
+                    return unconvertedValue / 1000;
+                }
+                else if(inputUnit.ToLower() == "kg")
+                {
+                    return unconvertedValue;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
             }
         }
         // Convenient function for a quick Horizontal Line
