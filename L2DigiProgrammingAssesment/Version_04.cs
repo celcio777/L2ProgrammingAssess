@@ -12,18 +12,24 @@ namespace L2DigiProgrammingAssesment
         static string[] name, nameRetain;
         static float[] price, size, priceRetain, sizeRetain;
         public static int[] score;
+
         public enum measurementType
         {
             NULLVALUE,
             WEIGHT,
             VOLUME
         }
+        static measurementType unitTypeControl = new measurementType(); // create new instance of measurementtype enum to use later
+        static measurementType unitTypeGiven = new measurementType(); // create second intance of measurementtype enum for checking if
+        // the user's input is valid against the previous ones (if that makes sense)
         public static void V4Main()
         {
+            
             bool rept = true; // loop for another product
             int totI = 0; // the current product to be stored, The unit type (mas/vol)
             // gathering data (inefficient)
             hl();
+           
             Console.WriteLine("How many products will you be comparing?");
             inputValid(totI, "i");
             Console.WriteLine("What are the Name, Price, and size of your products?");
@@ -117,73 +123,86 @@ namespace L2DigiProgrammingAssesment
         // input error checking
         static void inputValid(int iteration, string forVal)
         {
+            bool sizeEnteredExclusive = false;
             string tmpVal, keepVal, tmpUnitDisplay;
             while (true)
             {
-                tmpVal = Console.ReadLine();
-                keepVal = tmpVal;
-                if (float.TryParse(tmpVal, out float parsed))
+                if (!sizeEnteredExclusive)
                 {
-                    valueInput(parsed, tmpVal);
-                    Console.WriteLine("Value submitted");
-                    break;
-                }
-                else
-                {
-                    tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-]", string.Empty);
-                    tmpVal = Regex.Replace(tmpVal, "[^0-9.]", "");
-                    if (float.TryParse(tmpVal, out float parsed2))
+                    tmpVal = Console.ReadLine(); // issue is occurring here
+                    keepVal = tmpVal;
+                    if (float.TryParse(tmpVal, out float parsed))
                     {
-                        if (forVal != "s") // if the value that will be entered (Size, Price etc) is size, it needs a
-                            // different format of communication, as more data is required for that function, thus the
-                            // if statement allows different writes per condition.
+                        valueInput(parsed, tmpVal);
+                        Console.WriteLine("Value submitted");
+                        break;
+                    }
+                    
+                    else
+                    {
+                        tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-]", string.Empty);
+                        tmpVal = Regex.Replace(tmpVal, "[^0-9.]", "");
+                        if (float.TryParse(tmpVal, out float parsed2))
                         {
-                            Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
-                            string yn = new string(Console.ReadLine());
-                            if (yn == "y")
+                            if (forVal != "s") // if the value that will be entered (Size, Price etc) is size, it needs a
+                                               // different format of communication, as more data is required for that function, thus the
+                                               // if statement allows different writes per condition.
                             {
-                                valueInput(parsed, keepVal);
-                                Console.WriteLine("Value submitted");
-                                break;
-                            }
-                            else if (yn == "n")
-                            {
-                                Console.WriteLine("Okay, please try again.");
+                                Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
+                                string yn = new string(Console.ReadLine());
+                                if (yn == "y")
+                                {
+                                    valueInput(parsed, keepVal);
+                                    Console.WriteLine("Value submitted");
+                                    break;
+                                }
+                                else if (yn == "n")
+                                {
+                                    Console.WriteLine("Okay, please try again.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("An error occured, please try again:"); // this is a final wall, in case any of the other filters or 
+                                                                                              // requests fail, this will serve as a stop to prevent program failure.
+                                }
                             }
                             else
                             {
-                                Console.WriteLine("An error occured, please try again:"); // this is a final wall, in case any of the other filters or 
-                                // requests fail, this will serve as a stop to prevent program failure.
+                                Console.WriteLine($"Confirm that you would like to enter numerical value {parsed2} and unit {tmpUnitDisplay}?");
+
+                                while (true) // loops until a valid input is given
+                                {
+                                    Console.WriteLine("[y/n]");
+                                    string yn = Console.ReadLine();
+                                    if (yn == "y")
+                                    {
+                                        valueInput(parsed, keepVal);
+
+                                        break;
+                                    }
+                                    else if (yn == "n")
+                                    {
+                                        Console.WriteLine("Okay, please try again");
+                                        break;
+                                    }
+
+                                }
+
                             }
+
                         }
                         else
                         {
-                            Console.WriteLine($"Confirm that you would like to enter numerical value {parsed2} and unit {tmpUnitDisplay}?");
-                            
-                            while (true) // loops until a valid input is given
-                            {
-                                Console.WriteLine("[y/n]");
-                                string yn = Console.ReadLine();
-                                if(yn == "y")
-                                {
-                                    valueInput(parsed, keepVal);
-                                    break;
-                                }else if (yn == "n")
-                                {
-                                    Console.WriteLine("Okay, please try again");
-                                    break;
-                                }
-                                
-                            }
-                            
+                            Console.WriteLine("Sorry, I couldn't read that as a number value, please enter a number input.");
                         }
-                        
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, I couldn't read that as a number value, please enter a number input.");
                     }
                 }
+                else if (sizeEnteredExclusive)
+                {
+                    Console.WriteLine("Value submitted");
+                    break;
+                }
+
             }
             void valueInput(float valueToEnter, string recievedString)
             {
@@ -197,14 +216,19 @@ namespace L2DigiProgrammingAssesment
                 if (forVal == "s")
                 {
                     size[iteration] = valueToEnter;
-                    bool reenterUnit = false, hasFoundUnit = false ;
+                    bool reenterUnit = false, hasFoundUnit = false, noUnit = false ;
                     int whileLoops = 0;
+
                     while (!hasFoundUnit)
                     {
                         whileLoops++;
                         if (reenterUnit)
                         {
-                            Console.WriteLine("Sorry, I couldn't identify a unit. Please enter the unit now.");
+                            if (noUnit)
+                            {
+                                Console.WriteLine("Sorry, I couldn't identify a unit. Please enter the unit now.");
+                            }
+                            
                             Console.WriteLine("[Kg,g,L,mL]:");
                             recievedString = Console.ReadLine();
                             recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
@@ -213,64 +237,76 @@ namespace L2DigiProgrammingAssesment
                         {
                             recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
                         }
-                        measurementType unitType = new measurementType();
+                        
                         if (iteration == 0)
                         {
                             foreach (string sa in symbolsMass)
                             {
                                 if (recievedString.ToLower() == sa.ToLower())
                                 {
-                                    unitType = measurementType.WEIGHT;
+                                    unitTypeControl = measurementType.WEIGHT;
                                     multiplier = unitsMass[Array.IndexOf(symbolsMass, sa)];
                                     Console.WriteLine("Unit type found: Mass");
+                                    sizeEnteredExclusive = true;
                                     hasFoundUnit = true;
+                                    reenterUnit = false;
                                     break;
                                 }
-                                else
-                                {
-
-                                }
                             }
-                            if (unitType != measurementType.WEIGHT)
+                            if (unitTypeControl != measurementType.WEIGHT)
                             {
                                 foreach (string sb in symbolsVol)
                                 {
                                     if (recievedString.ToLower() == sb.ToLower())
                                     {
-                                        unitType = measurementType.VOLUME;
+                                        unitTypeControl = measurementType.VOLUME;
                                         multiplier = unitsMass[Array.IndexOf(symbolsVol, sb)];
                                         Console.WriteLine("Unit type found: Volume");
+                                        sizeEnteredExclusive = true;
                                         hasFoundUnit = true;
+                                        reenterUnit = false;
                                         break;
                                     }
                                 }
                             }
-                            if (unitType != measurementType.VOLUME && unitType != measurementType.WEIGHT)
+                            if (unitTypeControl != measurementType.VOLUME && unitTypeControl != measurementType.WEIGHT)
                             {
                                 reenterUnit = true;
                             }
                         }else if(iteration > 0)
                         {
-                            if(unitType == measurementType.VOLUME)
+                            foreach (string sa in symbolsMass)
                             {
-                                foreach (string sa in symbolsMass)
+                                if (sa == recievedString)
                                 {
-                                    if (sa == recievedString)
-                                    {
-
-                                    }
+                                    Console.WriteLine($"Reached mass at iteration = {iteration}");
+                                    unitTypeGiven = measurementType.WEIGHT;
+                                    break;
                                 }
                             }
-                            else if(unitType == measurementType.WEIGHT)
+                            foreach (string sb in symbolsMass)
                             {
-                                foreach(string sb in symbolsMass)
+                                if (sb == recievedString)
                                 {
-                                    if(sb == recievedString)
-                                    {
-
-                                    }
+                                    Console.WriteLine($"Reached volume at iteration = {iteration}");
+                                    unitTypeGiven = measurementType.VOLUME;
+                                    break;
                                 }
                             }
+                            if(unitTypeGiven == unitTypeControl)
+                            {
+                                sizeEnteredExclusive = true;
+                                hasFoundUnit = true;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Oops! You need to enter each product in the same unit type e.g mass (kg, g), volume (L,mL)");
+                                Console.WriteLine("Please enter the unit again now");
+                                reenterUnit = true;
+                                 
+                            }
+                            
                         }
                     }
                     
