@@ -99,10 +99,25 @@ namespace L2DigiProgrammingAssesment
             // displaying the data back to user 
             Console.WriteLine("These are the products you have given:");
             Console.WriteLine();
+            string unitsUsed;
+            if (unitTypeControl == measurementType.VOLUME)
+            {
+                unitsUsed = "L";
+            }
+            else if (unitTypeControl == measurementType.WEIGHT)
+            {
+                unitsUsed = "Kg";
+            }
+            else
+            {
+                unitsUsed = "Units";
+            }
             for (int i = 0; i < name.Length; i++)
             {
                 if (name[i] != null)
                 {
+                    priceRetain[i] = price[i];
+                    sizeRetain[i] = size[i]; // setting retainable values for display after they are deleted during score system.
                     Console.WriteLine($"{i + 1}) {name[i]}> Price: ${price[i]}, Size: {size[i]}");
                     Thread.Sleep(100);// Short delay whilst displaying for a smooth interface
                 }
@@ -112,22 +127,11 @@ namespace L2DigiProgrammingAssesment
             int[] returnScore = compareRateProducts(price, size); // array to store the returned score values in the long-term
             for (int i = 0; i < name.Length; i++)
             {
-                string unitsUsed;
-                if(unitTypeControl == measurementType.VOLUME)
-                {
-                    unitsUsed = "L";
-                }else if(unitTypeControl == measurementType.WEIGHT)
-                {
-                    unitsUsed = "Kg";
-                }
-                else
-                {
-                    unitsUsed = "Units";
-                }
+                
                 if (name[i] != null)
                 {
                     int indexTopScore = Array.IndexOf(score, score.Max());
-                    Console.WriteLine($"{i + 1}) {nameRetain[indexTopScore]}> Price: ${priceRetain[indexTopScore]}, size: {sizeRetain[indexTopScore]}{unitsUsed}, Score: {returnScore[indexTopScore]}pts.");
+                    Console.WriteLine($"{i + 1}) {name[indexTopScore]}> Price: ${priceRetain[indexTopScore]}, size: {sizeRetain[indexTopScore]}{unitsUsed}, Score: {returnScore[indexTopScore]}pts.");
                     score[indexTopScore] = -2; // ensuring that the same product's score won't be called twice by setting it negative.
                 }
             }
@@ -164,7 +168,7 @@ namespace L2DigiProgrammingAssesment
                                 string yn = new string(Console.ReadLine());
                                 if (yn == "y")
                                 {
-                                    valueInput(parsed, keepVal);
+                                    valueInput(parsed2, keepVal);
                                     Console.WriteLine("Value submitted");
                                     break;
                                 }
@@ -188,7 +192,7 @@ namespace L2DigiProgrammingAssesment
                                     string yn = Console.ReadLine();
                                     if (yn == "y")
                                     {
-                                        valueInput(parsed, keepVal);
+                                        valueInput(parsed2, keepVal);
 
                                         break;
                                     }
@@ -318,7 +322,6 @@ namespace L2DigiProgrammingAssesment
                         }
                     }
                     size[iteration] = convertToLargeUnits(recievedString, valueToEnter);
-
                 }
                 else if (forVal == "p")
                 {
@@ -328,8 +331,10 @@ namespace L2DigiProgrammingAssesment
                 {
                     // setting the arrays to the amount of products that the user will enter, with some flexibility
                     price = new float[(int)valueToEnter + 4];
+                    priceRetain = new float[(int)valueToEnter + 4];
                     name = new string[(int)valueToEnter + 4];
                     size = new float[(int)valueToEnter + 4];
+                    sizeRetain = new float[(int)valueToEnter];
                     score = new int[(int)valueToEnter + 4];
                 }
             }
@@ -348,7 +353,7 @@ namespace L2DigiProgrammingAssesment
                 }
                 else
                 {
-                    return 0;
+                    return 1;
                 }
             }else if(unitTypeControl == measurementType.WEIGHT)
             {
@@ -362,12 +367,12 @@ namespace L2DigiProgrammingAssesment
                 }
                 else
                 {
-                    return 0;
+                    return 2;
                 }
             }
             else
             {
-                return 0;
+                return 3;
             }
         }
         // Convenient function for a quick Horizontal Line
@@ -380,9 +385,6 @@ namespace L2DigiProgrammingAssesment
         {
             // setting keep variables so that there is still an array to display the 
             // variables of after scoring
-            nameRetain = name;
-            sizeRetain = size;
-            priceRetain = price;
             int i = 0;
             foreach (string j in name)
             {
