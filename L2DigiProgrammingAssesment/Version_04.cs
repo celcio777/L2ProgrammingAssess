@@ -118,7 +118,7 @@ namespace L2DigiProgrammingAssesment
                 {
                     priceRetain[i] = price[i];
                     sizeRetain[i] = size[i]; // setting retainable values for display after they are deleted during score system.
-                    Console.WriteLine($"{i + 1}) {name[i]}> Price: ${price[i]}, Size: {size[i]}");
+                    Console.WriteLine($"{i + 1}) {name[i]}> Price: ${price[i]}, Size: {size[i]}{unitsUsed}");
                     Thread.Sleep(100);// Short delay whilst displaying for a smooth interface
                 }
             }
@@ -240,11 +240,10 @@ namespace L2DigiProgrammingAssesment
                         whileLoops++;
                         if (reenterUnit)
                         {
-                            if (noUnit)
+                            if (noUnit || whileLoops == 2 /* this second check is for if the original unit entry was invalid */)
                             {
                                 Console.WriteLine("Sorry, I couldn't identify a unit. Please enter the unit now.");
                             }
-                            
                             Console.WriteLine("[Kg,g,L,mL]:");
                             recievedString = Console.ReadLine();
                         }
@@ -388,7 +387,7 @@ namespace L2DigiProgrammingAssesment
             int i = 0;
             foreach (string j in name)
             {
-                if (name[i] != "")
+                if (name[i] != "" && name[i] != null)
                 {
                     i++;
                 }

@@ -1,0 +1,12 @@
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Release\netcoreapp3.1\L2DigiProgrammingAssesment.exe
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Release\netcoreapp3.1\L2DigiProgrammingAssesment.deps.json
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Release\netcoreapp3.1\L2DigiProgrammingAssesment.runtimeconfig.json
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Release\netcoreapp3.1\L2DigiProgrammingAssesment.runtimeconfig.dev.json
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Release\netcoreapp3.1\L2DigiProgrammingAssesment.dll
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\bin\Release\netcoreapp3.1\L2DigiProgrammingAssesment.pdb
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Release\netcoreapp3.1\L2DigiProgrammingAssesment.AssemblyInfoInputs.cache
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Release\netcoreapp3.1\L2DigiProgrammingAssesment.AssemblyInfo.cs
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Release\netcoreapp3.1\L2DigiProgrammingAssesment.csproj.CoreCompileInputs.cache
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Release\netcoreapp3.1\L2DigiProgrammingAssesment.dll
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Release\netcoreapp3.1\L2DigiProgrammingAssesment.pdb
+C:\Users\Nick\Source\Repos\celcio777\L2ProgrammingAssess\L2DigiProgrammingAssesment\obj\Release\netcoreapp3.1\L2DigiProgrammingAssesment.genruntimeconfig.cache
