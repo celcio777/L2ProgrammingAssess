@@ -136,7 +136,17 @@ namespace L2DigiProgrammingAssesment
                 }
             }
         }
-        // input error checking
+        /*********************************************************************
+         * Method:      inputValid
+         * Purpose:     This method takes all inputs other than input for names,
+         *              ensures they are put into their respective variables as
+         *              valid values. It works differently depending on which 
+         *              variable it is validating for. e.g for size it takes
+         *              all of the users input, seperates it into unit and
+         *              numerical values, and validates from there, whereas the
+         *              pricing variable validation simply checks the number 
+         *              value.
+         *********************************************************************/
         static void inputValid(int iteration, string forVal)
         {
             bool sizeEnteredExclusive = false;
@@ -157,7 +167,7 @@ namespace L2DigiProgrammingAssesment
                     else
                     {
                         tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-]", string.Empty);
-                        tmpVal = Regex.Replace(tmpVal, "[^0-9.]", "");
+                        tmpVal = Regex.Replace(tmpVal, "[^0-9.]", ""); // attempts to filter the input value into numerical if the recieved value was not parseable.
                         if (float.TryParse(tmpVal, out float parsed2))
                         {
                             if (forVal != "s") // if the value that will be entered (Size, Price etc) is size, it needs a
@@ -221,6 +231,13 @@ namespace L2DigiProgrammingAssesment
                 }
 
             }
+            /*************************************************************************
+             * Method:      valueInput
+             * Purpose:     The purpose of valueInput is to take the validated input
+             *              inputValid, and allocate the given values to their respective
+             *              variables. It uses an identifier token, forVal, to decide 
+             *              where the value (valueToEnter) should go.
+             *************************************************************************/
             void valueInput(float valueToEnter, string recievedString)
             {
                 string[] symbolsMass = new string[] { "kg", "g" };
@@ -340,6 +357,15 @@ namespace L2DigiProgrammingAssesment
                 }
             }
         }
+        /**************************************************************************
+         * Method:      convertToLargeUnits
+         * Purpose:     To take all sizes given to the method, and convert the value
+         *              to the largest possible unit, e.g if a value of unit "g" and 
+         *              value 2500 is entered, the value will be converted to unit
+         *              "Kg" and value 2.5. This means that the scoring comparison will
+         *              be comparing sizes of the same unit, so grams won't be graded as
+         *              though they were kg.
+         **************************************************************************/
         static float convertToLargeUnits(string inputUnit, float unconvertedValue)
         {
             if (unitTypeControl == measurementType.VOLUME)
@@ -383,6 +409,11 @@ namespace L2DigiProgrammingAssesment
             Console.WriteLine("###################");
             Console.WriteLine();
         }
+        /*******************************************************************
+         * Method:      compareRateProducts
+         * Purpose:     To calculate the final scores of the entered products,
+         *              allocating points based on category rankings.
+         *******************************************************************/
         static int[] compareRateProducts(float[] calcPrice, float[] calcSizeScore)
         {
             // setting keep variables so that there is still an array to display the 
