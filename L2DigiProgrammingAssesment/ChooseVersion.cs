@@ -8,8 +8,8 @@ namespace L2DigiProgrammingAssesment
     class ChooseVersion
     {
         static List<Action> programVersions = new List<Action>();
-        static string[] versionNames = new string[] { "Basic functionality", "Display improvements", "Expanded functionality", "Measurement unit addition"};
-        static int[] actualVersion = new int[] { 1,2,3,4};
+        static string[] versionNames = new string[] { "Basic functionality", "Display improvements", "Expanded functionality", "Measurement unit addition", "Final"};
+        static int[] actualVersion = new int[] { 1,2,3,4,5};
         static string versionToRun;
 
         public static void Main(string[] args)
@@ -18,6 +18,7 @@ namespace L2DigiProgrammingAssesment
             programVersions.Add(() => V2.V2Main());
             programVersions.Add(() => V3.V3Main());
             programVersions.Add(() => V4.V4Main());
+            programVersions.Add(() => V5.V5Main());
             Console.WriteLine("<This is for version testing only>");
             Console.WriteLine("Which version would you like to run?");
             for (int i = 0; i < actualVersion.Length; i++)

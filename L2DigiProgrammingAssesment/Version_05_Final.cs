@@ -7,11 +7,11 @@ using System.Text;
 
 namespace L2DigiProgrammingAssesment
 {
-    class V4
+    class V5
     {
         static string[] name, nameRetain;
         static float[] price, size, priceRetain, sizeRetain;
-        public static int[] score;
+        static public int[] score;
 
         public enum measurementType
         {
@@ -22,14 +22,14 @@ namespace L2DigiProgrammingAssesment
         static measurementType unitTypeControl = new measurementType(); // create new instance of measurementtype enum to use later
         static measurementType unitTypeGiven = new measurementType(); // create second intance of measurementtype enum for checking if
         // the user's input is valid against the previous ones (if that makes sense)
-        public static void V4Main()
+        public static void V5Main()
         {
-            
+
             bool rept = true; // loop for another product
             int totI = 0; // the current product to be stored, The unit type (mas/vol)
             // gathering data (inefficient)
             hl();
-           
+
             Console.WriteLine("How many products will you be comparing?");
             inputValid(totI, "i");
             Console.WriteLine("What are the Name, Price, and size of your products?");
@@ -127,7 +127,7 @@ namespace L2DigiProgrammingAssesment
             int[] returnScore = compareRateProducts(price, size); // array to store the returned score values in the long-term
             for (int i = 0; i < name.Length; i++)
             {
-                
+
                 if (name[i] != null)
                 {
                     int indexTopScore = Array.IndexOf(score, score.Max());
@@ -145,15 +145,15 @@ namespace L2DigiProgrammingAssesment
             {
                 if (!sizeEnteredExclusive)
                 {
-                    tmpVal = Console.ReadLine(); // issue is occurring here
+                    tmpVal = Console.ReadLine();
                     keepVal = tmpVal;
                     if (float.TryParse(tmpVal, out float parsed))
                     {
-                        valueInput(parsed, tmpVal);
+                        valueInput(Math.Abs(parsed), tmpVal);
                         Console.WriteLine("Value submitted");
                         break;
                     }
-                    
+
                     else
                     {
                         tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-]", string.Empty);
@@ -169,7 +169,7 @@ namespace L2DigiProgrammingAssesment
                                 yn = Console.ReadLine();
                                 if (yn == "y")
                                 {
-                                    valueInput(parsed2, keepVal);
+                                    valueInput(Math.Abs(parsed2), keepVal);
                                     Console.WriteLine("Value submitted");
                                     break;
                                 }
@@ -193,7 +193,7 @@ namespace L2DigiProgrammingAssesment
                                     string yn = Console.ReadLine();
                                     if (yn == "y")
                                     {
-                                        valueInput(parsed2, keepVal);
+                                        valueInput(Math.Abs(parsed2), keepVal);
 
                                         break;
                                     }
@@ -232,8 +232,8 @@ namespace L2DigiProgrammingAssesment
 
                 if (forVal == "s")
                 {
-                    
-                    bool reenterUnit = false, hasFoundUnit = false, noUnit = false ;
+
+                    bool reenterUnit = false, hasFoundUnit = false, noUnit = false;
                     int whileLoops = 0;
 
                     while (!hasFoundUnit)
@@ -285,7 +285,8 @@ namespace L2DigiProgrammingAssesment
                             {
                                 reenterUnit = true;
                             }
-                        }else if(iteration > 0)
+                        }
+                        else if (iteration > 0)
                         {
                             foreach (string sa in symbolsMass)
                             {
@@ -305,7 +306,7 @@ namespace L2DigiProgrammingAssesment
                                     break;
                                 }
                             }
-                            if(unitTypeGiven == unitTypeControl)
+                            if (unitTypeGiven == unitTypeControl)
                             {
                                 sizeEnteredExclusive = true;
                                 hasFoundUnit = true;
@@ -316,9 +317,9 @@ namespace L2DigiProgrammingAssesment
                                 Console.WriteLine("Oops! You need to enter each product in the same unit type e.g mass (kg, g), volume (L,mL)");
                                 Console.WriteLine("Please enter the unit again now");
                                 reenterUnit = true;
-                                 
+
                             }
-                            
+
                         }
                     }
                     size[iteration] = convertToLargeUnits(recievedString, valueToEnter);
@@ -341,13 +342,13 @@ namespace L2DigiProgrammingAssesment
         }
         static float convertToLargeUnits(string inputUnit, float unconvertedValue)
         {
-            if(unitTypeControl == measurementType.VOLUME)
+            if (unitTypeControl == measurementType.VOLUME)
             {
-                if(inputUnit.ToLower() == "ml")
+                if (inputUnit.ToLower() == "ml")
                 {
                     return unconvertedValue / 1000;
                 }
-                else if(inputUnit.ToLower() == "l")
+                else if (inputUnit.ToLower() == "l")
                 {
                     return unconvertedValue;
                 }
@@ -355,13 +356,14 @@ namespace L2DigiProgrammingAssesment
                 {
                     return 1;
                 }
-            }else if(unitTypeControl == measurementType.WEIGHT)
+            }
+            else if (unitTypeControl == measurementType.WEIGHT)
             {
-                if(inputUnit.ToLower() == "g")
+                if (inputUnit.ToLower() == "g")
                 {
                     return unconvertedValue / 1000;
                 }
-                else if(inputUnit.ToLower() == "kg")
+                else if (inputUnit.ToLower() == "kg")
                 {
                     return unconvertedValue;
                 }
@@ -414,3 +416,4 @@ namespace L2DigiProgrammingAssesment
         }
     }
 }
+
