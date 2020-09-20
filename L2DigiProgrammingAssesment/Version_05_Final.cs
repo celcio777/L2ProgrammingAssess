@@ -159,9 +159,20 @@ namespace L2DigiProgrammingAssesment
                     keepVal = tmpVal;
                     if (float.TryParse(tmpVal, out float parsed))
                     {
-                        valueInput(Math.Abs(parsed), tmpVal);
-                        Console.WriteLine("Value submitted");
-                        break;
+                        if (parsed > 1000000000)
+                        {
+                            Console.WriteLine("Sorry, the value must be less than 1,000,000,000. Please try again.");
+                        } else if (parsed < 0.001 && parsed >= 0)
+                        {
+                            Console.WriteLine("Sorry, the absolute value must be greater than 0.001. Please try again.");
+                        }
+                        else
+                        {
+                            valueInput(Math.Abs(parsed), tmpVal);
+                            Console.WriteLine("Value submitted");
+                            break;
+                        }
+                        
                     }
 
                     else
@@ -170,52 +181,64 @@ namespace L2DigiProgrammingAssesment
                         tmpVal = Regex.Replace(tmpVal, "[^0-9.]", ""); // attempts to filter the input value into numerical if the recieved value was not parseable.
                         if (float.TryParse(tmpVal, out float parsed2))
                         {
-                            if (forVal != "s") // if the value that will be entered (Size, Price etc) is size, it needs a
-                                               // different format of communication, as more data is required for that function, thus the
-                                               // if statement allows different writes per condition.
+                            if (parsed2 > 1000000000)
                             {
-                                Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
-                                string yn;
-                                yn = Console.ReadLine();
-                                if (yn == "y")
-                                {
-                                    valueInput(Math.Abs(parsed2), keepVal);
-                                    Console.WriteLine("Value submitted");
-                                    break;
-                                }
-                                else if (yn == "n")
-                                {
-                                    Console.WriteLine("Okay, please try again.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("An error occured, please try again:"); // this is a final wall, in case any of the other filters or 
-                                                                                              // requests fail, this will serve as a stop to prevent program failure.
-                                }
+                                Console.WriteLine("Sorry, the value I found was incorrect, value must be less than 1,000,000,000. Please try again.");
+                            }
+                            else if (parsed2 < 0.001 && parsed2 >= 0)
+                            {
+                                Console.WriteLine("Sorry, the value I found was incorrect, absolute value must be greater than 0.001. Please try again.");
                             }
                             else
                             {
-                                Console.WriteLine($"Confirm that you would like to enter numerical value {parsed2} and unit {tmpUnitDisplay}?");
-
-                                while (true) // loops until a valid input is given
+                                if (forVal != "s") // if the value that will be entered (Size, Price etc) is size, it needs a
+                                                   // different format of communication, as more data is required for that function, thus the
+                                                   // if statement allows different writes per condition.
                                 {
-                                    Console.WriteLine("[y/n]");
-                                    string yn = Console.ReadLine();
+                                    Console.WriteLine($"Sorry, I didn't understand that, did you mean: \"{parsed2}\"? [y/n]");
+                                    string yn;
+                                    yn = Console.ReadLine();
                                     if (yn == "y")
                                     {
                                         valueInput(Math.Abs(parsed2), keepVal);
-
+                                        Console.WriteLine("Value submitted");
                                         break;
                                     }
                                     else if (yn == "n")
                                     {
-                                        Console.WriteLine("Okay, please try again");
-                                        break;
+                                        Console.WriteLine("Okay, please try again.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("An error occured, please try again:"); // this is a final wall, in case any of the other filters or 
+                                                                                                  // requests fail, this will serve as a stop to prevent program failure.
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Confirm that you would like to enter numerical value {parsed2} and unit {tmpUnitDisplay}?");
+
+                                    while (true) // loops until a valid input is given
+                                    {
+                                        Console.WriteLine("[y/n]");
+                                        string yn = Console.ReadLine();
+                                        if (yn == "y")
+                                        {
+                                            valueInput(Math.Abs(parsed2), keepVal);
+
+                                            break;
+                                        }
+                                        else if (yn == "n")
+                                        {
+                                            Console.WriteLine("Okay, please try again");
+                                            break;
+                                        }
+
                                     }
 
                                 }
-
                             }
+                            
 
                         }
                         else
