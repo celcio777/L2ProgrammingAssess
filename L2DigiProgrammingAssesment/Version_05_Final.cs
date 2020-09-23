@@ -177,7 +177,7 @@ namespace L2DigiProgrammingAssesment
 
                     else
                     {
-                        tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-]", string.Empty);
+                        tmpUnitDisplay = Regex.Replace(tmpVal, @"[\d-.]", string.Empty);
                         tmpVal = Regex.Replace(tmpVal, "[^0-9.]", ""); // attempts to filter the input value into numerical if the recieved value was not parseable.
                         if (float.TryParse(tmpVal, out float parsed2))
                         {
@@ -266,7 +266,7 @@ namespace L2DigiProgrammingAssesment
                 string[] symbolsMass = new string[] { "kg", "g" };
                 int[] unitsMass = new int[] { 1000, 1 };
 
-                string[] symbolsVol = new string[] { "L", "mL" };
+                string[] symbolsVol = new string[] { "l", "ml" };
                 int[] unitsVol = new int[] { 1000, 1 };
                 int multiplier = 1;
 
@@ -286,9 +286,10 @@ namespace L2DigiProgrammingAssesment
                                 Console.WriteLine("Sorry, I couldn't identify a unit. Please enter the unit now.");
                             }
                             Console.WriteLine("[Kg,g,L,mL]:");
-                            recievedString = Console.ReadLine();
+                            recievedString = Console.ReadLine().ToLower();
                         }
-                        recievedString = Regex.Replace(recievedString, @"[\d-]", string.Empty);
+                        recievedString = Regex.Replace(recievedString, @"[\d-.]", string.Empty);
+                        
 
                         if (iteration == 0)
                         {
@@ -298,7 +299,6 @@ namespace L2DigiProgrammingAssesment
                                 {
                                     unitTypeControl = measurementType.WEIGHT;
                                     multiplier = unitsMass[Array.IndexOf(symbolsMass, sa)];
-                                    Console.WriteLine("Unit type found: Mass");
                                     sizeEnteredExclusive = true;
                                     hasFoundUnit = true;
                                     reenterUnit = false;
@@ -313,7 +313,6 @@ namespace L2DigiProgrammingAssesment
                                     {
                                         unitTypeControl = measurementType.VOLUME;
                                         multiplier = unitsMass[Array.IndexOf(symbolsVol, sb)];
-                                        Console.WriteLine("Unit type found: Volume");
                                         sizeEnteredExclusive = true;
                                         hasFoundUnit = true;
                                         reenterUnit = false;
@@ -332,7 +331,6 @@ namespace L2DigiProgrammingAssesment
                             {
                                 if (sa == recievedString)
                                 {
-                                    Console.WriteLine($"Reached mass at iteration = {iteration}");
                                     unitTypeGiven = measurementType.WEIGHT;
                                     break;
                                 }
@@ -341,7 +339,6 @@ namespace L2DigiProgrammingAssesment
                             {
                                 if (sb == recievedString)
                                 {
-                                    Console.WriteLine($"Reached volume at iteration = {iteration}");
                                     unitTypeGiven = measurementType.VOLUME;
                                     break;
                                 }
@@ -441,7 +438,7 @@ namespace L2DigiProgrammingAssesment
         {
             // setting keep variables so that there is still an array to display the 
             // variables of after scoring
-            int i = 0;
+            int i = 0, indexNoSize = 0, indexNoPrice = 0;
             foreach (string j in name)
             {
                 if (name[i] != "" && name[i] != null)
@@ -456,10 +453,13 @@ namespace L2DigiProgrammingAssesment
             }
             for (int j = 0; j < i; j++)
             {
-                score[calcScores(size)] += i - j;
-                size[j] = 0;
-                score[calcScores(price)] += j;
-                price[j] = 0;
+                indexNoSize = calcScores(size);
+                indexNoPrice = calcScores(price);
+
+                score[indexNoSize] += i - j; // Adding i-j means largest valid size gets best points
+                size[indexNoSize] = 0;
+                score[indexNoPrice] += j; // Adding j rather than i-j means that the lowest valid price will get best points
+                price[indexNoPrice] = 0;
             }
             int calcScores(float[] arrayMaxToFind)
             {
